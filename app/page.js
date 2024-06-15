@@ -1,95 +1,105 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { query, collection, getDocs, doc, getDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBcai_tSl5H56O3MMD1MSgm67XQHSoRLUw",
+  authDomain: "servicioasistencia-6262b.firebaseapp.com",
+  projectId: "servicioasistencia-6262b",
+  storageBucket: "servicioasistencia-6262b.appspot.com",
+  messagingSenderId: "1095776365906",
+  appId: "1:1095776365906:web:fb21ad604ba489182b5e8b",
+  measurementId: "G-YHG78HVDRR"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+
+async function getUsuarios() {
+  const q = query(collection(db, "usuarios"));
+
+  const querySnapshot = await getDocs(q);
+  let data = []
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const datos = doc.data()
+    data.push({
+      id: doc.id,
+      ...datos
+    })
+  });
+  return data
+}
+
+
+export default async function Home() {
+   async function postEntry(formData) {
+    'use server'
+
+    const matricula = formData.get('matricula')
+    const hora = formData.get('hora')
+    console.log({matricula, hora})
+
+    const fecha = new Date()
+    const fecha_string = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`
+    console.log(fecha_string)
+
+    const entradaHoy = doc(db, "usuarios", matricula)
+
+    const docSnap = await getDoc(entradaHoy);
+
+    if (!docSnap.exists()) {
+      // TODO: Hacer un alert que diga que la matricula es incorrecta
+      return null
+    }
+    
+    const querySnapshot = await getDocs(collection(db, "usuarios", matricula, "asistencia"));
+
+    let isEntry = true 
+    querySnapshot.forEach(dia => {
+      if (dia.id === fecha_string) {
+        isEntry = false
+      }
+    })
+
+    console.log({isEntry})
+
+    const entryRef = db.collection("usuarios").doc(matricula).collection(hora);
+    if (isEntry) {
+      setDoc(entryRef, { entrada: hora }, { merge: true });
+    } else {
+      setDoc(entryRef, { salida : hora }, { merge: true });
+    }
+
+
+  }
+  let date = new Date().toTimeString().split('').slice(0, 5).join('')
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <form action={postEntry} className={styles.main}>
+      <h1>Registar Entrada / Salida</h1>
+      <input 
+        type="number" 
+        name="matricula"
+        placeholder="Ingresa Matrícula"
+        required
+      />
+      <input 
+        name="hora"
+        type="text" 
+        value={date}
+        readOnly
+      />
+      <button>
+        Enviar
+      </button>
+    </form>
   );
 }
