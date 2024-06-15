@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { query, collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { query, collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcai_tSl5H56O3MMD1MSgm67XQHSoRLUw",
@@ -44,8 +44,8 @@ export default async function Home() {
    async function postEntry(formData) {
     'use server'
 
+    const hora = new Date().toTimeString().split('').slice(0, 5).join('')
     const matricula = formData.get('matricula')
-    const hora = formData.get('hora')
     console.log({matricula, hora})
 
     const fecha = new Date()
@@ -72,7 +72,8 @@ export default async function Home() {
 
     console.log({isEntry})
 
-    const entryRef = db.collection("usuarios").doc(matricula).collection(hora);
+    const entryRef = doc(db, "usuarios", matricula, "asistencia", fecha_string);
+    console.log(entryRef)
     if (isEntry) {
       setDoc(entryRef, { entrada: hora }, { merge: true });
     } else {
@@ -81,7 +82,6 @@ export default async function Home() {
 
 
   }
-  let date = new Date().toTimeString().split('').slice(0, 5).join('')
   return (
     <form action={postEntry} className={styles.main}>
       <h1>Registar Entrada / Salida</h1>
@@ -90,12 +90,6 @@ export default async function Home() {
         name="matricula"
         placeholder="Ingresa Matrícula"
         required
-      />
-      <input 
-        name="hora"
-        type="text" 
-        value={date}
-        readOnly
       />
       <button>
         Enviar
