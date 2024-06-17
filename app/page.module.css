@@ -30,7 +30,6 @@
   margin: 0;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
 }
 
@@ -50,7 +49,6 @@
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
 }
 
@@ -112,7 +110,6 @@
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
 
   .card:hover span {
@@ -227,4 +224,18 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.input,
+.button {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  width: 100%;
+  border: 1px solid;
+}
+
+.button {
+  background-color: #103097;
+  color: aliceblue;
+  cursor: pointer;
 }

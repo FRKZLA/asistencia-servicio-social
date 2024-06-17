@@ -84,14 +84,16 @@ export default async function Home() {
   }
   return (
     <form action={postEntry} className={styles.main}>
-      <h1>Registar Entrada / Salida</h1>
+      <h1>Registrar Entrada/Salida</h1>
       <input 
         type="number" 
         name="matricula"
         placeholder="Ingresa Matrícula"
+        className={styles.input}
         required
       />
-      <button>
+      <button
+        className={styles.button}>
         Enviar
       </button>
     </form>
