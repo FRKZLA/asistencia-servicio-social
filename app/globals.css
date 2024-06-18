@@ -40,6 +40,7 @@
   --card-border-rgb: 131, 134, 135;
 
   --background-color: #f5f5f5;
+  --primary-color: #103097;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -89,7 +90,8 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: var(--background-color)
+  background: var(--background-color);
+  min-height: 100vh;
 }
 
 a {

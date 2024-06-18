@@ -1,0 +1,34 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.item {
+    height: 50px;
+    background-color: rgb(233, 233, 233);
+    flex: 1;
+    place-content: center;
+    text-align: center;
+    transition: all 200ms ease;
+}
+
+
+.item:hover {
+    background-color: rgb(127, 172, 255);
+}
+
+.active {
+    color: var(--primary-color);
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+    }
+}
