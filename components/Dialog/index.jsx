@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 
-const Dialog = ({ title, children }) => {
+const Dialog = ({ title, children, handleClose }) => {
   const [open, setOpen] = useState(true)
 
   if (!children) return null
@@ -11,7 +11,7 @@ const Dialog = ({ title, children }) => {
     <dialog open={open}>
       <div>
         <h2>{title}</h2>
-        <button type='button' onClick={() => setOpen(false)}>X</button>
+        <button type='button' onClick={() => handleClose()}>X</button>
       </div>
       {children}
     </dialog>

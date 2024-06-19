@@ -13,10 +13,14 @@ const initialState = {
 export default function Home() {
   const [state, formAction] = useFormState(postEntry, initialState)
 
+  const handleDialogClose = () => {
+    formAction({ error: null })
+  }
+
   return (
     <form action={formAction} className={styles.main}>
       <h1>Registrar Entrada/Salida</h1>
-      <Dialog title="Error">
+      <Dialog title="Error" handleClose={handleDialogClose}>
         {state.error}
       </Dialog>
       <input 
