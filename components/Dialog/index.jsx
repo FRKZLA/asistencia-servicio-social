@@ -1,11 +1,12 @@
 'use client'
-import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 
 
 const Dialog = ({ title, children }) => {
-  const { pending } = useFormStatus()
   const [open, setOpen] = useState(true)
+
+  if (!children) return null
+
   return (
     <dialog open={open}>
       <div>

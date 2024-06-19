@@ -3,14 +3,21 @@ import styles from "./page.module.css";
 
 import Dialog from "@/components/Dialog";
 import { postEntry } from "./actions";
+import { useFormState } from 'react-dom'
+
+const initialState = {
+  error: null,
+  isEntry: null
+}
 
 export default function Home() {
+  const [state, formAction] = useFormState(postEntry, initialState)
 
   return (
-    <form action={postEntry} className={styles.main}>
+    <form action={formAction} className={styles.main}>
       <h1>Registrar Entrada/Salida</h1>
       <Dialog title="Error">
-        <p>La matrícula no existe</p>
+        {state.error}
       </Dialog>
       <input 
         type="number" 

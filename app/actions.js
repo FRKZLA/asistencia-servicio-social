@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-export async function postEntry(formData) {
+export async function postEntry(prevState, formData) {
 
   const hora = new Date().toTimeString().split('').slice(0, 5).join('')
   const matricula = formData.get('matricula')
