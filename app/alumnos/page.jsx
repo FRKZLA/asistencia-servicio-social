@@ -1,6 +1,10 @@
+import FloatingButtonComponent from '@/components/FloatingButton'
+import pageStyles from '../page.module.css'
+
 const ListOfAlumnos = () => {
-  return <main>
-    <h1>si</h1>
+  return <main className={pageStyles.main}>
+    <h1>Lista de Alumnos</h1>
+    <FloatingButtonComponent />
   </main>
 
 }
