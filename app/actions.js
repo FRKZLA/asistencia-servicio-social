@@ -21,6 +21,13 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export async function postEntry(prevState, formData) {
+  if (formData.get('close')) {
+    return {
+      error: null,
+      message: null,
+      isEntry: null
+    }
+  }
 
   const hora = new Date().toTimeString().split('').slice(0, 5).join('')
   const matricula = formData.get('matricula')
@@ -37,7 +44,8 @@ export async function postEntry(prevState, formData) {
   if (!docSnap.exists()) {
     // TODO: Hacer un alert que diga que la matricula es incorrecta
     return {
-      error: "La matrícula no existe"
+      error: true,
+      message: "La matrícula no existe"
     }
   }
 
@@ -53,7 +61,6 @@ export async function postEntry(prevState, formData) {
   console.log({ isEntry })
 
   const entryRef = doc(db, "usuarios", matricula, "asistencia", fecha_string);
-  console.log(entryRef)
   if (isEntry) {
     setDoc(entryRef, { entrada: hora }, { merge: true });
   } else {
@@ -61,8 +68,9 @@ export async function postEntry(prevState, formData) {
   }
 
   return {
-    error: null,
-    isEntry: isEntry
+    error: false,
+    isEntry: isEntry,
+    message: isEntry ? `Entrada registrada a las ${hora}` : `Salida registrada a las ${hora}`
   }
 }
 

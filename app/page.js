@@ -7,25 +7,32 @@ import { useFormState } from 'react-dom'
 
 const initialState = {
   error: null,
+  message: null,
   isEntry: null
 }
 
 export default function Home() {
   const [state, formAction] = useFormState(postEntry, initialState)
-  console.log(state)
 
   const handleDialogClose = () => {
-    formAction({ error: null })
+    const newForm = new FormData()
+
+    newForm.set('close', true)
+    formAction(newForm)
   }
 
   return (
     <form action={formAction} className={styles.main}>
       <h1>Registrar Entrada/Salida</h1>
-      <Dialog title="Error" handleClose={handleDialogClose}>
-        {state.error}
-      </Dialog>
-      <input 
-        type="number" 
+      {
+        state.message && (
+          <Dialog title={state.error ? 'Error' : 'Mensaje'} handleClose={handleDialogClose}>
+            {state.message}
+          </Dialog>
+        )
+      }
+      <input
+        type="number"
         name="matricula"
         placeholder="Ingresa Matrícula"
         className={styles.input}
