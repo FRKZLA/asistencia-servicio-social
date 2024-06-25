@@ -12,6 +12,7 @@ const initialState = {
 
 export default function Home() {
   const [state, formAction] = useFormState(postEntry, initialState)
+  console.log(state)
 
   const handleDialogClose = () => {
     formAction({ error: null })

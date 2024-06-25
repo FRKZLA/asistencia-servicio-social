@@ -59,6 +59,11 @@ export async function postEntry(prevState, formData) {
   } else {
     setDoc(entryRef, { salida: hora }, { merge: true });
   }
+
+  return {
+    error: null,
+    isEntry: isEntry
+  }
 }
 
 
