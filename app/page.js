@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 import Dialog from "@/components/Dialog";
 import { postEntry } from "./actions";
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 
 const initialState = {
   error: null,
@@ -13,6 +13,9 @@ const initialState = {
 
 export default function Home() {
   const [state, formAction] = useFormState(postEntry, initialState)
+  const { pending } = useFormStatus()
+
+  console.log(pending)
 
   const handleDialogClose = () => {
     const newForm = new FormData()
@@ -39,7 +42,9 @@ export default function Home() {
         required
       />
       <button
-        className={styles.button}>
+        className={styles.button}
+        disabled={pending}
+      >
         Enviar
       </button>
     </form>
