@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import styles from './Dialog.module.css'
 
 
 const Dialog = ({ title, children, handleClose }) => {
@@ -12,13 +13,17 @@ const Dialog = ({ title, children, handleClose }) => {
   }
 
   return (
-    <dialog open={open}>
-      <div>
-        <h2>{title}</h2>
-        <button type='button' onClick={handleModal}>X</button>
-      </div>
-      {children}
-    </dialog>
+    <main className={styles.container}>
+      <dialog open={open} className={styles.dialog}>
+        <div>
+          <h2>{title}</h2>
+        </div>
+        <section>
+          {children}
+        </section>
+        <button type='button' onClick={handleModal} className={styles.button}>Aceptar</button>
+      </dialog>
+    </main>
   )
 }
 
