@@ -29,11 +29,13 @@ export async function postEntry(prevState, formData) {
     }
   }
 
-  const hora = new Date().toTimeString().split('').slice(0, 5).join('')
+  // El offset es para convertir utc a local
+  const OFFSET = 6 * 60 * 60 * 1000
+  const fecha = new Date(new Date - OFFSET)
+  const hora = fecha.toUTCString().split(' ')[4].split('').slice(0, 5).join('')
   const matricula = formData.get('matricula')
   console.log({ matricula, hora })
 
-  const fecha = new Date()
   const fecha_string = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`
   console.log(fecha_string)
 
