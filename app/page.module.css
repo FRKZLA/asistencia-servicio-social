@@ -7,8 +7,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  height: inherit;
+  padding: 2rem;
+  gap: 2rem;
+  place-content: center;
+  height: 100vh;
 }
 
 .description {
