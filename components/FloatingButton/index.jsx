@@ -1,10 +1,11 @@
 import styles from './float_button.module.css'
+import Link from 'next/link'
 
-const FloatingButtonComponent = () => {
+const FloatingButtonComponent = ({ href = '#' }) => {
   return (
-    <div className={styles.button}>
+    <Link className={styles.button} href={href}>
       +
-    </div>
+    </Link>
   )
 }
 

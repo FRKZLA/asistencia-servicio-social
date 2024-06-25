@@ -4,7 +4,7 @@ import pageStyles from '../page.module.css'
 const ListOfAlumnos = () => {
   return <main className={pageStyles.main}>
     <h1>Lista de Alumnos</h1>
-    <FloatingButtonComponent />
+    <FloatingButtonComponent href='/alumnos/add' />
   </main>
 
 }
