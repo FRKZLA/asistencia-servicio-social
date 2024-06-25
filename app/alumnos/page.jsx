@@ -1,5 +1,7 @@
 const ListOfAlumnos = () => {
-    return <h1>si</h1>
+  return <main>
+    <h1>si</h1>
+  </main>
 
 }
 
