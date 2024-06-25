@@ -230,22 +230,9 @@
   }
 }
 
-.input,
-.button {
+.input {
   padding: 1rem;
   border-radius: var(--border-radius);
   width: 100%;
   border: 1px solid;
-}
-
-.button {
-  background-color: #103097;
-  color: aliceblue;
-  cursor: pointer;
-}
-
-.button:disabled {
-  background-color: #d3d3d3;
-  color: #a9a9a9;
-  cursor: not-allowed;
 }

@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Dialog from "@/components/Dialog";
 import { postEntry } from "./actions";
 import { useFormState, useFormStatus } from 'react-dom'
+import Button from "@/components/Button";
 
 const initialState = {
   error: null,
@@ -41,12 +42,9 @@ export default function Home() {
         className={styles.input}
         required
       />
-      <button
-        className={styles.button}
-        disabled={pending}
-      >
+      <Button>
         Enviar
-      </button>
+      </Button>
     </form>
   );
 }
