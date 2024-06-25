@@ -3,8 +3,12 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 150px;
-    place-content: center;
+    bottom: 50px;
+    backdrop-filter: brightness(0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease alternate;
 }
 
 .dialog {
@@ -26,4 +30,13 @@
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
