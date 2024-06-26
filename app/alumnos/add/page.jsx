@@ -35,7 +35,6 @@ const AlumnoAddPage = () => {
             name='hora_entrada'
             min='07:00'
             max='21:00'
-            step='60000000000'
             required
             className={styles.input}
           />
