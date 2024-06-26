@@ -20,8 +20,8 @@ const ListOfAlumnos = () => {
   return (
     <article className={styles.flex_container}>
       {alumnos.map((alumno) => (
-        <Link href={`/alumnos/${alumno.id}`} key={alumno.id}>
-          <h3>Matrícula: {alumno.matricula}</h3>
+        <Link href={`/alumnos/${alumno.id}`} key={alumno.id} className={styles.item}>
+          <h3># {alumno.id}</h3>
           <p>Nombre: {alumno.nombre}</p>
         </Link>
       ))}
