@@ -4,21 +4,22 @@
     gap: 1rem;
     margin: 0 auto;
     padding: 1rem;
-    border: 1px solid #ccc;
     border-radius: 10px;
-    width: 80%;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
 }
 
 .input {
     position: relative;
-    display: flex;
-    flex-direction: column;
     gap: 0.5rem;
     width: 100%;
     padding: 10px;
-    padding-top: 20px;
-    border-radius: 7px;
+    padding-top: 25px;
+    border-radius: 10px;
     border: 1px solid #ccc;
+    transition: all 0.3s ease;
+    accent-color: var(--primary-color);
 }
 
 .input_container {
@@ -27,13 +28,14 @@
 
 .label {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 10px;
     z-index: 5;
     transition: all 0.3s ease;
     pointer-events: none;
+    color: #333;
 }
 
 /* when input is focused change label */

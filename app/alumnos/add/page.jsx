@@ -7,9 +7,8 @@ const AlumnoAddPage = () => {
     <main className={pageStyles.main}>
       <h1>Agregar Alumno</h1>
       <form action="" className={styles.form}>
-        <h2>Nuevo Alumno</h2>
+        <h3>Nuevo Alumno</h3>
         <section className={styles.input_container}>
-
           <input
             type="text"
             id="nombre"
