@@ -1,0 +1,7 @@
+.flex_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+}

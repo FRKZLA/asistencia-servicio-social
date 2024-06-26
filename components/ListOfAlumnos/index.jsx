@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { getUsuarios } from '@/app/actions'
+import styles from './list.module.css'
 
 const ListOfAlumnos = () => {
   const [alumnos, setAlumnos] = useState([])
@@ -16,15 +17,16 @@ const ListOfAlumnos = () => {
   }, [])
 
 
-  return <ul>
-    {alumnos.map((alumno, index) => (
-      <li key={index}>
-        <Link href={`/alumnos/${alumno.id}`}>
-          {alumno.nombre}
+  return (
+    <article className={styles.flex_container}>
+      {alumnos.map((alumno) => (
+        <Link href={`/alumnos/${alumno.id}`} key={alumno.id}>
+          <h3>Matrícula: {alumno.matricula}</h3>
+          <p>Nombre: {alumno.nombre}</p>
         </Link>
-      </li>
-    ))}
-  </ul>
+      ))}
+    </article>
+  )
 }
 
 export default ListOfAlumnos
