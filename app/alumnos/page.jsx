@@ -1,12 +1,15 @@
 import FloatingButtonComponent from '@/components/FloatingButton'
+import ListOfAlumnos from '@/components/ListOfAlumnos'
 import pageStyles from '../page.module.css'
 
-const ListOfAlumnos = () => {
-  return <main className={pageStyles.main}>
-    <h1>Lista de Alumnos</h1>
-    <FloatingButtonComponent href='/alumnos/add' />
-  </main>
-
+const ListOfAlumnosPage = () => {
+  return (
+    <main className={pageStyles.main}>
+      <h1>Lista de Alumnos</h1>
+      <ListOfAlumnos />
+      <FloatingButtonComponent href='/alumnos/add' />
+    </main>
+  )
 }
 
-export default ListOfAlumnos
+export default ListOfAlumnosPage
