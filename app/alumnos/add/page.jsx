@@ -1,12 +1,23 @@
+'use client'
+import { useFormState } from 'react-dom';
 import pageStyles from '@/app/page.module.css'
 import styles from './add.module.css'
 import Button from '@/components/Button';
 
+import { postAlumno } from '@/app/actions';
+
+const initialState = {
+  error: null,
+  message: null
+}
+
 const AlumnoAddPage = () => {
+  const [state, formData] = useFormState(postAlumno, initialState);
+  console.log(state)
   return (
     <main className={pageStyles.main}>
       <h1>Agregar Alumno</h1>
-      <form action="" className={styles.form}>
+      <form action={formData} className={styles.form}>
         <h3>Nuevo Alumno</h3>
         <section className={styles.input_container}>
           <input

@@ -76,6 +76,24 @@ export async function postEntry(prevState, formData) {
   }
 }
 
+export async function postAlumno(prevState, formData) {
+  const matricula = formData.get('matricula')
+  const nombre = formData.get('nombre')
+  const hora_entrada = formData.get('hora_entrada')
+  const hora_salida = formData.get('hora_salida')
+
+  const docRef = doc(db, "usuarios", matricula);
+  await setDoc(docRef, {
+    nombre,
+    hora_entrada,
+    hora_salida
+  });
+
+  return {
+    error: false,
+    message: `Alumno registrado correctamente`
+  }
+}
 
 export async function getUsuarios() {
   const q = query(collection(db, "usuarios"));
