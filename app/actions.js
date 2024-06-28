@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { query, collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
+import { redirect } from "next/navigation";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcai_tSl5H56O3MMD1MSgm67XQHSoRLUw",
@@ -77,6 +78,18 @@ export async function postEntry(prevState, formData) {
 }
 
 export async function postAlumno(prevState, formData) {
+  if (formData.get('close')) {
+    if (prevState.error) {
+      return {
+        error: null,
+        message: null
+      }
+    } else {
+      redirect('/alumnos')
+    }
+  }
+
+
   const matricula = formData.get('matricula')
   const nombre = formData.get('nombre')
   const hora_entrada = formData.get('hora_entrada')

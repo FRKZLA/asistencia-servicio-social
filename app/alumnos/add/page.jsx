@@ -3,6 +3,7 @@ import { useFormState } from 'react-dom';
 import pageStyles from '@/app/page.module.css'
 import styles from './add.module.css'
 import Button from '@/components/Button';
+import Dialog from '@/components/Dialog';
 
 import { postAlumno } from '@/app/actions';
 import Link from 'next/link';
@@ -13,8 +14,16 @@ const initialState = {
 }
 
 const AlumnoAddPage = () => {
-  const [state, formData] = useFormState(postAlumno, initialState);
+  const [state, formAction] = useFormState(postAlumno, initialState);
   console.log(state)
+
+  const handleDialogClose = () => {
+    const newForm = new FormData()
+
+    newForm.set('close', true)
+    formAction(newForm)
+  }
+
   return (
     <main className={pageStyles.main}>
       <h1 className={styles.title}>
@@ -23,7 +32,7 @@ const AlumnoAddPage = () => {
         </Link>
         Agregar Alumno
       </h1>
-      <form action={formData} className={styles.form}>
+      <form action={formAction} className={styles.form}>
         <h3>Nuevo Alumno</h3>
         <section className={styles.input_container}>
           <input
@@ -73,6 +82,13 @@ const AlumnoAddPage = () => {
           Agregar
         </Button>
       </form>
+      {
+        state.message && (
+          <Dialog title={state.error ? 'Error' : 'Mensaje'} handleClose={handleDialogClose}>
+            {state.message}
+          </Dialog>
+        )
+      }
     </main>
   );
 }
