@@ -40,7 +40,8 @@
   --card-border-rgb: 131, 134, 135;
 
   --background-color: #f5f5f5;
-  --primary-color: #103097;
+  --primary-color: rgb(16, 48, 151);
+  --primary-color-alt: rgb(25, 72, 230);
 }
 
 * {
