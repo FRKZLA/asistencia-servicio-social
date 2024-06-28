@@ -5,6 +5,7 @@ import styles from './add.module.css'
 import Button from '@/components/Button';
 
 import { postAlumno } from '@/app/actions';
+import Link from 'next/link';
 
 const initialState = {
   error: null,
@@ -16,7 +17,12 @@ const AlumnoAddPage = () => {
   console.log(state)
   return (
     <main className={pageStyles.main}>
-      <h1>Agregar Alumno</h1>
+      <h1 className={styles.title}>
+        <Link href='/alumnos' className={styles.back_button}>
+          {`<`}-
+        </Link>
+        Agregar Alumno
+      </h1>
       <form action={formData} className={styles.form}>
         <h3>Nuevo Alumno</h3>
         <section className={styles.input_container}>
