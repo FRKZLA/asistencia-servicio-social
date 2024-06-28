@@ -82,6 +82,15 @@ export async function postAlumno(prevState, formData) {
   const hora_entrada = formData.get('hora_entrada')
   const hora_salida = formData.get('hora_salida')
 
+  // Check if the matricula already exists
+  const docSnap = await getDoc(doc(db, "usuarios", matricula));
+  if (docSnap.exists()) {
+    return {
+      error: true,
+      message: `La matrícula ${matricula} ya existe`
+    }
+  }
+
   const docRef = doc(db, "usuarios", matricula);
   await setDoc(docRef, {
     nombre,
