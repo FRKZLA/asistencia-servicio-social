@@ -133,3 +133,19 @@ export async function getUsuarios() {
   return data
 }
 
+export async function getUsuario(id) {
+  const docRef = doc(db, "usuarios", id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    }
+  } else {
+    return {
+      error: true,
+      message: `El usuario con matrícula ${id} no existe`
+    }
+  }
+}

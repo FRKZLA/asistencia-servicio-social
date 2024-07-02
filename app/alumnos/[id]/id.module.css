@@ -3,3 +3,15 @@
   height: 45px;
   place-content: center;
 }
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 90%;
+  background-color: #fff;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
+}
