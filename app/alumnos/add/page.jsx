@@ -7,6 +7,7 @@ import Dialog from '@/components/Dialog';
 
 import { postAlumno } from '@/app/actions';
 import Link from 'next/link';
+import BackButton from '@/components/BackButton';
 
 const initialState = {
   error: null,
@@ -26,12 +27,7 @@ const AlumnoAddPage = () => {
 
   return (
     <main className={pageStyles.main}>
-      <h1 className={styles.title}>
-        <Link href='/alumnos' className={styles.back_button}>
-          {`<`}-
-        </Link>
-        Agregar Alumno
-      </h1>
+      <BackButton href='/alumnos' title='Agregar Alumno' />
       <form action={formAction} className={styles.form}>
         <h3>Nuevo Alumno</h3>
         <section className={styles.input_container}>

@@ -1,0 +1,26 @@
+.title {
+  position: relative;
+  height: 45px;
+  place-content: center;
+}
+
+.back_button {
+  display: inline-block;
+  position: absolute;
+
+  left: -60px;
+  top: 0;
+  bottom: 0;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-align: center;
+  place-content: center;
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+}
