@@ -14,6 +14,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
   useEffect(() => {
     Promise.all([getUsuario(id), getAsistencias(id)])
       .then(([usuario, asistencias]) => {
+        console.log(Object.entries(asistencias))
         setPersonalInfo(usuario)
         setAsistencias(asistencias)
         setIsLoading(false)
@@ -35,13 +36,17 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
             </section>
             {
-              asistencias.map((asistencia) => (
-                <section key={asistencia.id} className={styles.info}>
-                  <h2>Asistencia</h2>
-                  <hr />
-                  <h4>Fecha: {asistencia.id}</h4>
-                  <h4>Entrada: {asistencia.entrada}</h4>
-                  <h4>Salida: {asistencia.salida}</h4>
+              Object.entries(asistencias).map(([key, asistencia]) => (
+                <section key={key} className={styles.info}>
+                  <h2>Asistencia {new Date(`2024-${key}-1`).toDateString().split(' ')[1]}</h2>
+                  {
+                    asistencia.map((dia) => (
+                      <aside key={dia.id}>
+                        <hr />
+                        <h4>{dia.id.split('-')[2]}: {dia.entrada} - {dia.salida}</h4>
+                      </aside>
+                    ))
+                  }
                 </section>))
             }
           </>

@@ -1,7 +1,7 @@
 'use server'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { query, collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
+import { query, collection, getDocs, doc, getDoc, setDoc, orderBy, documentId } from "firebase/firestore";
 import { redirect } from "next/navigation";
 
 const firebaseConfig = {
@@ -151,14 +151,23 @@ export async function getUsuario(id) {
 }
 
 export async function getAsistencias(id) {
-  const q = query(collection(db, "usuarios", id, "asistencia"));
+  // query with order
+  const q = query(collection(db, "usuarios", id, "asistencia"), orderBy(documentId(), 'desc'));
+
+
 
   const querySnapshot = await getDocs(q);
-  let data = []
+  let data = {} 
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     const datos = doc.data()
-    data.push({
+    // agrupar por mes
+    const mes = doc.id.split('-')[1]
+    if (!data[mes]) {
+      data[mes] = []
+    }
+
+    data[mes].push({
       id: doc.id,
       ...datos
     })
