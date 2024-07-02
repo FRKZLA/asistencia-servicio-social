@@ -149,3 +149,19 @@ export async function getUsuario(id) {
     }
   }
 }
+
+export async function getAsistencias(id) {
+  const q = query(collection(db, "usuarios", id, "asistencia"));
+
+  const querySnapshot = await getDocs(q);
+  let data = []
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const datos = doc.data()
+    data.push({
+      id: doc.id,
+      ...datos
+    })
+  });
+  return data
+}
