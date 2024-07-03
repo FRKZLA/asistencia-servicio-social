@@ -63,6 +63,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         console.log({ diff, diffHours, diffMinutes })
                         return [acc[0] + diffHours, acc[1] + diffMinutes]
                       }, [0, 0])
+                      .map((time) => time.toString().padStart(2, '0'))
                       .join(':')} horas
                 </section>))
             }
