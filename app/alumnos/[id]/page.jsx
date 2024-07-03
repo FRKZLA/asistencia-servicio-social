@@ -55,12 +55,15 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
                         const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
 
-                        const diff = (salida - entrada) / 1000 / 60 / 60
-                        const diffHours = Math.floor(diff)
-                        const diffMinutes = Math.round((diff - diffHours) * 60)
+                        const diff = parseInt((salida - entrada) / 1000 / 60)
+                        const diffHours = Math.floor(diff / 60)
+                        const diffMinutes = Math.floor(diff % 60)
 
+                        // Si los minutos se pasan de 60, sumar una hora y restar 60 minutos
+                        if (acc[1] + diffMinutes >= 60) {
+                          return [acc[0] + diffHours + 1, acc[1] + diffMinutes - 60]
+                        }
 
-                        console.log({ diff, diffHours, diffMinutes })
                         return [acc[0] + diffHours, acc[1] + diffMinutes]
                       }, [0, 0])
                       .map((time) => time.toString().padStart(2, '0'))
