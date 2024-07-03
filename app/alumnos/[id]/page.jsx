@@ -38,7 +38,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
             {
               Object.entries(asistencias).map(([key, asistencia]) => (
                 <section key={key} className={styles.info}>
-                  <h2>Asistencia {new Date(`2024-${key}-1`).toDateString().split(' ')[1]}</h2>
+                  <h2>{new Date(`2024-${key}-1`).toDateString().split(' ')[1]}</h2>
                   {
                     asistencia.map((dia) => (
                       <aside key={dia.id}>
