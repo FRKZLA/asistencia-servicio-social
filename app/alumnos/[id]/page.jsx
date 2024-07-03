@@ -50,6 +50,8 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                   Total: {
                     asistencia
                       .reduce((acc, dia) => {
+                        if (!dia.entrada || !dia.salida) return acc
+
                         const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
                         const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
 
