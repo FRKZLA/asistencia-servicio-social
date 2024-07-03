@@ -43,7 +43,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                     asistencia.map((dia) => (
                       <aside key={dia.id}>
                         <hr />
-                        <h4>{Number(dia.id.split('-')[2])}: {dia.entrada} - {dia.salida}</h4>
+                        <h4>{dia.id.split('-')[2].padStart(2, '0')}: {dia.entrada} - {dia.salida}</h4>
                       </aside>
                     ))
                   }
