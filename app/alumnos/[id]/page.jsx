@@ -47,6 +47,21 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                       </aside>
                     ))
                   }
+                  Total: {
+                    asistencia
+                      .reduce((acc, dia) => {
+                        const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
+                        const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
+
+                        const diff = (salida - entrada) / 1000 / 60 / 60
+                        const diffHours = Math.floor(diff)
+                        const diffMinutes = Math.round((diff - diffHours) * 60)
+
+
+                        console.log({ diff, diffHours, diffMinutes })
+                        return [acc[0] + diffHours, acc[1] + diffMinutes]
+                      }, [0, 0])
+                      .join(':')} horas
                 </section>))
             }
           </>
