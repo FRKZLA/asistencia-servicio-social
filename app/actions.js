@@ -1,7 +1,7 @@
 'use server'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { query, collection, getDocs, doc, getDoc, setDoc, orderBy, documentId } from "firebase/firestore";
+import { query, collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
 
 const firebaseConfig = {
@@ -152,9 +152,7 @@ export async function getUsuario(id) {
 
 export async function getAsistencias(id) {
   // query with order
-  const q = query(collection(db, "usuarios", id, "asistencia"), orderBy(documentId(), 'desc'));
-
-
+  const q = query(collection(db, "usuarios", id, "asistencia"));
 
   const querySnapshot = await getDocs(q);
   let data = {} 
