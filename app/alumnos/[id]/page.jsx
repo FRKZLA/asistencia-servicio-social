@@ -36,39 +36,41 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
             </section>
             {
-              Object.entries(asistencias).map(([key, asistencia]) => (
-                <section key={key} className={styles.info}>
-                  <h2>{new Date(`2024-${key}-1`).toDateString().split(' ')[1]}</h2>
-                  {
-                    asistencia.map((dia) => (
-                      <aside key={dia.id}>
-                        <hr />
-                        <h4>{dia.id.split('-')[2].padStart(2, '0')}: {dia.entrada} - {dia.salida}</h4>
-                      </aside>
-                    ))
-                  }
-                  Total: {
-                    asistencia
-                      .reduce((acc, dia) => {
-                        if (!dia.entrada || !dia.salida) return acc
+              Object.entries(asistencias)
+                .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
+                .map(([key, asistencia]) => (
+                  <section key={key} className={styles.info}>
+                    <h2>{new Date(`2024-${key}-1`).toDateString().split(' ')[1]}</h2>
+                    {
+                      asistencia.map((dia) => (
+                        <aside key={dia.id}>
+                          <hr />
+                          <h4>{dia.id.split('-')[2].padStart(2, '0')}: {dia.entrada} - {dia.salida}</h4>
+                        </aside>
+                      ))
+                    }
+                    Total: {
+                      asistencia
+                        .reduce((acc, dia) => {
+                          if (!dia.entrada || !dia.salida) return acc
 
-                        const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
-                        const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
+                          const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
+                          const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
 
-                        const diff = parseInt((salida - entrada) / 1000 / 60)
-                        const diffHours = Math.floor(diff / 60)
-                        const diffMinutes = Math.floor(diff % 60)
+                          const diff = parseInt((salida - entrada) / 1000 / 60)
+                          const diffHours = Math.floor(diff / 60)
+                          const diffMinutes = Math.floor(diff % 60)
 
-                        // Si los minutos se pasan de 60, sumar una hora y restar 60 minutos
-                        if (acc[1] + diffMinutes >= 60) {
-                          return [acc[0] + diffHours + 1, acc[1] + diffMinutes - 60]
-                        }
+                          // Si los minutos se pasan de 60, sumar una hora y restar 60 minutos
+                          if (acc[1] + diffMinutes >= 60) {
+                            return [acc[0] + diffHours + 1, acc[1] + diffMinutes - 60]
+                          }
 
-                        return [acc[0] + diffHours, acc[1] + diffMinutes]
-                      }, [0, 0])
-                      .map((time) => time.toString().padStart(2, '0'))
-                      .join(':')} horas
-                </section>))
+                          return [acc[0] + diffHours, acc[1] + diffMinutes]
+                        }, [0, 0])
+                        .map((time) => time.toString().padStart(2, '0'))
+                        .join(':')} horas
+                  </section>))
             }
           </>
         )
