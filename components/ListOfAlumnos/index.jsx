@@ -25,7 +25,7 @@ const ListOfAlumnos = () => {
       {alumnos.map((alumno) => (
         <Link href={`/alumnos/${alumno.id}`} key={alumno.id} className={styles.item}>
           <h3># {alumno.id}</h3>
-          <p>Nombre: {alumno.nombre}</p>
+          <p>{alumno.nombre}</p>
         </Link>
       ))}
     </article>
