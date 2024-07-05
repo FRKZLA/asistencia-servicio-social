@@ -7,7 +7,9 @@ const ListOfAlumnosPage = () => {
     <main className={pageStyles.main}>
       <h1>Lista de Alumnos</h1>
       <ListOfAlumnos />
-      <FloatingButtonComponent href='/alumnos/add' />
+      {
+        //<FloatingButtonComponent href='/alumnos/add' />
+      }
     </main>
   )
 }
