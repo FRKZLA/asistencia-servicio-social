@@ -22,7 +22,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
         setIsLoading(false)
         const total = Object.entries(asistencias)
           .reduce((acc, asistencia) => {
-            const sum = acc + asistencia[1]
+            const sum = asistencia[1]
               .reduce((acc, dia) => {
                 if (!dia.entrada || !dia.salida) return acc
 
@@ -36,8 +36,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               ...prev,
               [asistencia[0]]: sum
             }))
-            return sum
-
+            return acc + sum
           }
             , 0)
         setTotalMin(total)
@@ -74,27 +73,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         </aside>
                       ))
                     }
-                    Total: {
-                      asistencia
-                        .reduce((acc, dia) => {
-                          if (!dia.entrada || !dia.salida) return acc
-
-                          const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
-                          const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
-
-                          const diff = parseInt((salida - entrada) / 1000 / 60)
-                          const diffHours = Math.floor(diff / 60)
-                          const diffMinutes = Math.floor(diff % 60)
-
-                          // Si los minutos se pasan de 60, sumar una hora y restar 60 minutos
-                          if (acc[1] + diffMinutes >= 60) {
-                            return [acc[0] + diffHours + 1, acc[1] + diffMinutes - 60]
-                          }
-
-                          return [acc[0] + diffHours, acc[1] + diffMinutes]
-                        }, [0, 0])
-                        .map((time) => time.toString().padStart(2, '0'))
-                        .join(':')} horas
+                    Total: {convertMinutesToString(totalByDay[key])} horas
                   </section>))
             }
           </>
