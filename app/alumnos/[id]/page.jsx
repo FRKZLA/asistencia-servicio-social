@@ -12,6 +12,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
   const [asistencias, setAsistencias] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [totalMin, setTotalMin] = useState(0)
+  const [totalByDay, setTotalByDay] = useState({})
 
   useEffect(() => {
     Promise.all([getUsuario(id), getAsistencias(id)])
@@ -19,18 +20,26 @@ const AlumnoByIdPage = ({ params: { id } }) => {
         setPersonalInfo(usuario)
         setAsistencias(asistencias)
         setIsLoading(false)
+        const total = Object.entries(asistencias)
+          .reduce((acc, asistencia) => {
+            const sum = acc + asistencia[1]
+              .reduce((acc, dia) => {
+                if (!dia.entrada || !dia.salida) return acc
 
-        const total = Object.values(asistencias).reduce((acc, asistencia) => {
-          return acc + asistencia.reduce((acc, dia) => {
-            if (!dia.entrada || !dia.salida) return acc
+                const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
+                const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
 
-            const entrada = new Date(`2024-01-01 ${dia.entrada}`).getTime()
-            const salida = new Date(`2024-01-01 ${dia.salida}`).getTime()
+                return acc + parseInt((salida - entrada) / 1000 / 60)
+              }, 0)
 
-            return acc + parseInt((salida - entrada) / 1000 / 60)
-          }, 0)
-        }
-          , 0)
+            setTotalByDay((prev) => ({
+              ...prev,
+              [asistencia[0]]: sum
+            }))
+            return sum
+
+          }
+            , 0)
         setTotalMin(total)
       })
   }, [id])
