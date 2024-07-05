@@ -7,6 +7,8 @@ import BackButton from '@/components/BackButton'
 import { getUsuario, getAsistencias } from '@/app/actions'
 import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 
+const MINUTOS_A_REALIZAR = 480 * 60
+
 const AlumnoByIdPage = ({ params: { id } }) => {
   const [personalInfo, setPersonalInfo] = useState(null)
   const [asistencias, setAsistencias] = useState(null)
@@ -57,7 +59,10 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Nombre: {personalInfo.nombre}</h4>
               <h4>Matrícula: {personalInfo.id}</h4>
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
-              <h4>Horas Realizadas: {convertMinutesToString(totalMin)}</h4>
+              <hr />
+              <h3>Conteo de horas</h3>
+              <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
+              <h4>Faltantes: {Math.floor((MINUTOS_A_REALIZAR - totalMin) / 60)}</h4>
             </section>
             {
               Object.entries(asistencias)
