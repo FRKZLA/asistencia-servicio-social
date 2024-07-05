@@ -5,12 +5,13 @@ import styles from './id.module.css'
 import Link from 'next/link'
 import BackButton from '@/components/BackButton'
 import { getUsuario, getAsistencias } from '@/app/actions'
+import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 
 const AlumnoByIdPage = ({ params: { id } }) => {
   const [personalInfo, setPersonalInfo] = useState(null)
   const [asistencias, setAsistencias] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [totalHours, setTotalHours] = useState([0, 0])
+  const [totalMin, setTotalMin] = useState(0)
 
   useEffect(() => {
     Promise.all([getUsuario(id), getAsistencias(id)])
@@ -30,8 +31,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
           }, 0)
         }
           , 0)
-
-        setTotalHours([Math.floor(total / 60), total % 60])
+        setTotalMin(total)
       })
   }, [id])
 
@@ -49,7 +49,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Nombre: {personalInfo.nombre}</h4>
               <h4>Matrícula: {personalInfo.id}</h4>
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
-              <h4>Horas Realizadas: {totalHours.map((n) => n.toString().padStart(2, '0')).join(':')}</h4>
+              <h4>Horas Realizadas: {convertMinutesToString(totalMin)}</h4>
             </section>
             {
               Object.entries(asistencias)
