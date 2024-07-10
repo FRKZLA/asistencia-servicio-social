@@ -6,16 +6,7 @@ import styles from './panel.module.css'
 const PanelPage = () => {
   return (
     <main className={pageStyles.main}>
-      <h1>Panel de Administración</h1>
-      <form action="" className={styles.form}>
-        <Input
-          id='pass'
-          name='pass'
-          title='Contraseña'
-          required
-        />
-        <Button type='submit'>Guardar</Button>
-      </form>
+      <h1>Panel</h1>
     </main>
   )
 

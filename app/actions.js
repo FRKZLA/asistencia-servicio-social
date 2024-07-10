@@ -172,3 +172,16 @@ export async function getAsistencias(id) {
   });
   return data
 }
+
+export async function getToken(prevState, formData) {
+  const pass = formData.get('pass')
+
+  if (pass !== 'admin') {
+    return {
+      error: true,
+      message: 'Contraseña incorrecta'
+    }
+  }
+
+  return redirect('/panel-de-salva-e-ivan-para-la-cuenta-de-asistencias-y-el-excel-de-los-alumnos')
+}
