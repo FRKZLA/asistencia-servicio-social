@@ -4,3 +4,8 @@
   gap: 1rem;
   width: 100%;
 }
+
+.btn_excel {
+  background-color: #086825;
+  color: white;
+}

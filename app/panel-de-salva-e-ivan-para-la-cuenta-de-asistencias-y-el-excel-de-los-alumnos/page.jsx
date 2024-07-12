@@ -16,6 +16,12 @@ const PanelPage = () => {
   return (
     <main className={pageStyles.main}>
       <h1>Panel</h1>
+      <section>
+        Junio
+      </section>
+      <section>
+        Julio
+      </section>
       <table ref={tableRef}>
         <thead>
           <tr>
@@ -52,7 +58,7 @@ const PanelPage = () => {
           </tr>
         </tbody>
       </table>
-      <Button onClick={handleExport}>Exportar a Excel</Button>
+      <Button onClick={handleExport} className={styles.btn_excel}>Exportar a Excel</Button>
     </main>
   )
 
