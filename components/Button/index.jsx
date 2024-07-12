@@ -4,11 +4,18 @@ import styles from './Button.module.css'
 
 const Button = ({ children, ...props }) => {
   const { pending } = useFormStatus()
+  let className = styles.button
+
+  // Merge the class names
+  if (props.className) {
+    className += ` ${props.className}`
+  }
+
   return (
     <button
-      className={styles.button}
       disabled={pending}
       {...props}
+      className={className}
     >
       {children}
     </button>
