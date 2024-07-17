@@ -83,7 +83,13 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <hr />
               <h3>Conteo de horas</h3>
               <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
-              <h4>Faltantes: {Math.floor((MINUTOS_A_REALIZAR - totalMin) / 60)}</h4>
+              {
+                horasFaltantes > 0 ? (
+                  <h4 className='danger'>Faltan {horasFaltantes} horas en el mes actual</h4>
+                ) : (
+                  <h4 className='success'>Horas completadas</h4>
+                )
+              }
             </section>
             {
               Object.entries(asistencias)
@@ -102,11 +108,6 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         ))
                     }
                     Total: {convertMinutesToString(totalByDay[key])} horas
-                    {
-                      horasFaltantes > 0 && (
-                        <h4>Faltan {horasFaltantes} horas</h4>
-                      )
-                    }
                   </section>))
             }
           </>
