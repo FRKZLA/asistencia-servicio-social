@@ -15,6 +15,9 @@ const AlumnoByIdPage = ({ params: { id } }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [totalMin, setTotalMin] = useState(0)
   const [totalByDay, setTotalByDay] = useState({})
+  const [horasFaltantes, setHorasFaltantes] = useState(0)
+
+  const dateNow = new Date()
 
   useEffect(() => {
     Promise.all([getUsuario(id), getAsistencias(id)])
@@ -33,6 +36,24 @@ const AlumnoByIdPage = ({ params: { id } }) => {
 
                 return acc + parseInt((salida - entrada) / 1000 / 60)
               }, 0)
+
+            console.log(sum / 60)
+
+            // Si está en el mes actual
+            if (parseInt(asistencia[0]) === dateNow.getMonth() + 1) {
+              const initialDate = new Date(`2024-${asistencia[0]}-1`)
+              const finalDate = new Date().setDate(new Date().getDate() - 1)
+              let sumaHoras = 0
+
+              for (let i = initialDate; i < finalDate; i.setDate(i.getDate() + 1)) {
+                if (i.getDay() === 0 || i.getDay() === 6) {
+                  continue
+                }
+                //console.log(i.getDay())
+                sumaHoras += 4
+              }
+              setHorasFaltantes(Math.floor(sumaHoras - (sum / 60)))
+            }
 
             setTotalByDay((prev) => ({
               ...prev,
@@ -81,6 +102,11 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         ))
                     }
                     Total: {convertMinutesToString(totalByDay[key])} horas
+                    {
+                      horasFaltantes > 0 && (
+                        <h4>Faltan {horasFaltantes} horas</h4>
+                      )
+                    }
                   </section>))
             }
           </>
