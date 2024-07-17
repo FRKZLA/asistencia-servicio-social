@@ -37,23 +37,30 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                 return acc + parseInt((salida - entrada) / 1000 / 60)
               }, 0)
 
-            console.log(sum / 60)
-
             // Si está en el mes actual
-            if (parseInt(asistencia[0]) === dateNow.getMonth() + 1) {
-              const initialDate = new Date(`2024-${asistencia[0]}-1`)
-              const finalDate = new Date().setDate(new Date().getDate() - 1)
-              let sumaHoras = 0
+            const initialDate = new Date(`2024-${asistencia[0]}-1`)
+            const finalDate = new Date().setDate(new Date().getDate() - 1)
+            const anotherDate = new Date(initialDate.getFullYear(), asistencia[0], 0)
+            let sumaHoras = 0
 
-              for (let i = initialDate; i < finalDate; i.setDate(i.getDate() + 1)) {
-                if (i.getDay() === 0 || i.getDay() === 6) {
-                  continue
-                }
-                //console.log(i.getDay())
-                sumaHoras += 4
-              }
-              setHorasFaltantes(Math.floor(sumaHoras - (sum / 60)))
+            let useDate;
+            if (parseInt(asistencia[0]) === dateNow.getMonth() + 1) {
+              useDate = finalDate
+            } else {
+              useDate = anotherDate
             }
+
+            for (let i = initialDate; i < useDate; i.setDate(i.getDate() + 1)) {
+              if (i.getDay() === 0 || i.getDay() === 6) {
+                continue
+              }
+              //console.log(i.getDay())
+              sumaHoras += 4
+            }
+            setHorasFaltantes(prev => ({
+              ...prev,
+              [asistencia[0]]: Math.floor(sumaHoras - (sum / 60))
+            }))
 
             setTotalByDay((prev) => ({
               ...prev,
@@ -83,13 +90,6 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <hr />
               <h3>Conteo de horas</h3>
               <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
-              {
-                horasFaltantes > 0 ? (
-                  <h4 className='danger'>Faltan {horasFaltantes} horas en el mes actual</h4>
-                ) : (
-                  <h4 className='success'>Horas completadas</h4>
-                )
-              }
             </section>
             {
               Object.entries(asistencias)
@@ -108,6 +108,13 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         ))
                     }
                     Total: {convertMinutesToString(totalByDay[key])} horas
+                    {
+                      horasFaltantes[key] > 0 ? (
+                        <h4 className='danger'>Faltan {horasFaltantes[key]} horas en el mes actual</h4>
+                      ) : (
+                        <h4 className='success'>Horas completadas</h4>
+                      )
+                    }
                   </section>))
             }
           </>
