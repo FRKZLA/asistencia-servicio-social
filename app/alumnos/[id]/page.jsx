@@ -110,9 +110,9 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                     Total: {convertMinutesToString(totalByDay[key])} horas
                     {
                       horasFaltantes[key] > 0 ? (
-                        <h4 className='danger'>Faltan {horasFaltantes[key]} horas en el mes actual</h4>
+                        <h4 className='danger'>Faltan {horasFaltantes[key]} horas en el mes</h4>
                       ) : (
-                        <h4 className='success'>Horas completadas</h4>
+                        <h4 className='success'>Está al corriente</h4>
                       )
                     }
                   </section>))
