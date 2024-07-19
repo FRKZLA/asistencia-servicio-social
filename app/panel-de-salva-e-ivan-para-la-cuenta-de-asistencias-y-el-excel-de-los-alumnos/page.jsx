@@ -1,12 +1,32 @@
 'use client'
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import pageStyles from '@/app/page.module.css'
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import styles from './panel.module.css'
 import { utils, writeFileXLSX } from "xlsx";
+import { getAsistencias, getUsuario, getUsuarios } from '../actions';
+import useAlumno from '@/hook/useAlumno';
 
 const PanelPage = () => {
+  const [alumnos, setAlumnos] = useState([]);
+  useEffect(() => {
+    // fetch alumnos
+    getUsuarios().then(data => {
+      setAlumnos(data)
+    })
+  }, [])
+
+  useEffect(() => {
+    Promise.all(alumnos.map(alumno => getAsistencias(alumno.id)))
+      .then(data => {
+        console.log(data)
+      })
+
+
+  }, [alumnos])
+  // const { } = useAlumno(10)
+
   const tableRef = useRef(null);
   const handleExport = () => {
     const wb = utils.table_to_book(tableRef.current);

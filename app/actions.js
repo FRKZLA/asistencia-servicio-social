@@ -185,3 +185,19 @@ export async function getToken(prevState, formData) {
 
   return redirect('/panel-de-salva-e-ivan-para-la-cuenta-de-asistencias-y-el-excel-de-los-alumnos')
 }
+
+export async function getReporteAlumnos() {
+  const q = query(collection(db, "usuarios"));
+
+  const querySnapshot = await getDocs(q);
+  let data = []
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const datos = doc.data()
+    data.push({
+      id: doc.id,
+      ...datos
+    })
+  });
+  return data
+}
