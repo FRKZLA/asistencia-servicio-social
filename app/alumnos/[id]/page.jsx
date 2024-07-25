@@ -5,7 +5,7 @@ import Link from 'next/link'
 import BackButton from '@/components/BackButton'
 import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 import useAlumno from '@/hook/useAlumno'
-import { QRCode } from 'qrcode.react'
+import QRCode from 'react-qr-code'
 
 const MINUTOS_A_REALIZAR = 480 * 60
 
