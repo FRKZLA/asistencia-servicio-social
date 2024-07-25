@@ -65,9 +65,9 @@ export async function postEntry(prevState, formData) {
 
   const entryRef = doc(db, "usuarios", matricula, "asistencia", fecha_string);
   if (isEntry) {
-    setDoc(entryRef, { entrada: hora }, { merge: true });
+    await setDoc(entryRef, { entrada: hora }, { merge: true });
   } else {
-    setDoc(entryRef, { salida: hora }, { merge: true });
+    await setDoc(entryRef, { salida: hora }, { merge: true });
   }
 
   return {
