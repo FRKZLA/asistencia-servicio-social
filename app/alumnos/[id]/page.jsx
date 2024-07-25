@@ -22,12 +22,15 @@ const AlumnoByIdPage = ({ params: { id } }) => {
             <section className={styles.info}>
               <h2>Información Personal</h2>
               <hr />
-              <h4>Nombre: {personalInfo.nombre}</h4>
-              <h4>Matrícula: {personalInfo.id}</h4>
-              <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
-              <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                <h4>Código QR:</h4>
-                <QRCode value={personalInfo.id} size={128} />
+              <div className={styles['info-row']}>
+                <div className={styles['info-column']}>
+                  <h4>Nombre: {personalInfo.nombre}</h4>
+                  <h4>Matrícula: {personalInfo.id}</h4>
+                  <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
+                </div>
+                <div>
+                  <QRCode value={personalInfo.id} size={128} />
+                </div>
               </div>
               <hr />
               <h3>Conteo de horas</h3>

@@ -15,3 +15,15 @@
   background-color: #fff;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
 }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
