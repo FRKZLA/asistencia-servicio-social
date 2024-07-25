@@ -5,7 +5,7 @@ import Dialog from "@/components/Dialog";
 import { postEntry } from "./actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { useState } from "react";
-import QRScanner from "@/components/QRScanner";
+import QRScanner from "@/components/QRScanner/QRScanner";
 
 const initialState = {
   error: null,
