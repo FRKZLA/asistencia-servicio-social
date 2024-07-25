@@ -29,7 +29,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                   <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
                 </div>
                 <div>
-                  <QRCode value={personalInfo.id} size={128} />
+                  <QRCode value={personalInfo.id} size={240} />
                 </div>
               </div>
               <hr />
