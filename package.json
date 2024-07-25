@@ -13,7 +13,8 @@
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz",
+    "html5-qrcode": "^2.2.1"
   },
   "devDependencies": {
     "eslint": "^8",
