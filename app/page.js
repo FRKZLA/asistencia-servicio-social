@@ -30,9 +30,9 @@ export default function Home() {
     formAction(newForm);
 
     // Reiniciar el escáner después de 5 segundos
-    setTimeout(() => {
-      setResetKey((prevKey) => prevKey + 1);
-    }, 5000);
+    //setTimeout(() => {
+    //  setResetKey((prevKey) => prevKey + 1);
+    //}, 5000);
   };
 
   const handleScanError = (error) => {
