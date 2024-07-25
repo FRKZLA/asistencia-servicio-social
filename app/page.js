@@ -41,20 +41,21 @@ export default function Home() {
 
   return (
     <form action={formAction} className={styles.main}>
-      <h1>Registrar Entrada/Salida</h1>
+      <head> Servicio Social Educación Digital </head>{" "}
+      <h1> Registrar Entrada / Salida </h1>{" "}
       {state.message && (
         <Dialog
           title={state.error ? "Error" : "Mensaje"}
           handleClose={handleDialogClose}
         >
-          {state.message}
+          {state.message}{" "}
         </Dialog>
-      )}
+      )}{" "}
       <QRScanner
         key={resetKey}
         onScanSuccess={handleScanSuccess}
         onScanError={handleScanError}
-      />
+      />{" "}
     </form>
   );
 }
