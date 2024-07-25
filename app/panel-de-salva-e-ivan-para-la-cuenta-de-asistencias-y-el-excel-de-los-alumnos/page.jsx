@@ -10,17 +10,20 @@ import useAlumno from '@/hook/useAlumno';
 
 const PanelPage = () => {
   const [alumnos, setAlumnos] = useState([]);
+  const [asistencias, setAsistencias] = useState([]);
   useEffect(() => {
     // fetch alumnos
     getUsuarios().then(data => {
       setAlumnos(data)
+      console.log({ alumnos: data })
     })
   }, [])
 
   useEffect(() => {
     Promise.all(alumnos.map(alumno => getAsistencias(alumno.id)))
       .then(data => {
-        console.log(data)
+        console.log({ data })
+        setAsistencias(data)
       })
 
 
@@ -38,6 +41,22 @@ const PanelPage = () => {
       <h1>Panel</h1>
       <section>
         Junio
+        {
+          alumnos.map(alumno => (
+            <div key={alumno.id}>
+              <h2>{alumno.nombre}</h2>
+              <ul>
+                {
+                  asistencias.map(asistencia => (
+                    <li key={asistencia.id}>
+                      {asistencia.fecha}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          ))
+        }
       </section>
       <section>
         Julio
