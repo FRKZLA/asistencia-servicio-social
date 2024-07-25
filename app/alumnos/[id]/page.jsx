@@ -5,6 +5,7 @@ import Link from 'next/link'
 import BackButton from '@/components/BackButton'
 import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 import useAlumno from '@/hook/useAlumno'
+import { QRCode } from 'qrcode.react'
 
 const MINUTOS_A_REALIZAR = 480 * 60
 
@@ -24,6 +25,10 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Nombre: {personalInfo.nombre}</h4>
               <h4>Matrícula: {personalInfo.id}</h4>
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
+              <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <h4>Código QR:</h4>
+                <QRCode value={personalInfo.id} size={128} />
+              </div>
               <hr />
               <h3>Conteo de horas</h3>
               <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
