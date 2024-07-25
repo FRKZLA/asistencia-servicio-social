@@ -17,7 +17,7 @@ const QRScanner = ({ onScanSuccess, onScanError, resetKey }) => {
     };
   }, [resetKey, onScanSuccess, onScanError]);
 
-  return <div id="qr-reader" style={{ width: "300px" }} />;
+  return <div id="qr-reader" style={{ width: "480px" }} />;
 };
 
 export default QRScanner;
