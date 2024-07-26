@@ -17,7 +17,7 @@ const Dialog = ({ title, children, handleClose, isError }) => {
     <main className={styles.container}>
       <dialog open={open} className={styles.dialog}>
         <div>
-          <h2>{title}</h2>
+          <h2 className={isError ? styles.text_error : ''}>{title}</h2>
         </div>
         <section>
           {children}
