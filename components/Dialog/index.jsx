@@ -22,7 +22,7 @@ const Dialog = ({ title, children, handleClose, isError }) => {
         <section>
           {children}
         </section>
-        <Button type='button' onClick={handleModal} isError={isError} className={styles.button}>Aceptar</Button>
+        <Button type='button' onClick={handleModal} isError={isError} className={styles.button} autoFocus>Aceptar</Button>
       </dialog>
     </main>
   )

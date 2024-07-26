@@ -40,6 +40,7 @@ export default function Home() {
         name="matricula"
         placeholder="Ingresa Matrícula"
         className={styles.input}
+        autoFocus
         required
       />
       <Button>
