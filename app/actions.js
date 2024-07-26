@@ -40,40 +40,48 @@ export async function postEntry(prevState, formData) {
   const fecha_string = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`
   console.log(fecha_string)
 
-  const entradaHoy = doc(db, "usuarios", matricula)
+  try {
+    const entradaHoy = doc(db, "usuarios", matricula)
 
-  const docSnap = await getDoc(entradaHoy);
+    const docSnap = await getDoc(entradaHoy);
 
-  if (!docSnap.exists()) {
-    // TODO: Hacer un alert que diga que la matricula es incorrecta
+    if (!docSnap.exists()) {
+      // TODO: Hacer un alert que diga que la matricula es incorrecta
+      return {
+        error: true,
+        message: "La matrícula no existe"
+      }
+    }
+
+    const querySnapshot = await getDocs(collection(db, "usuarios", matricula, "asistencia"));
+
+    let isEntry = true
+    querySnapshot.forEach(dia => {
+      if (dia.id === fecha_string) {
+        isEntry = false
+      }
+    })
+
+    console.log({ isEntry })
+
+    const entryRef = doc(db, "usuarios", matricula, "asistencia", fecha_string);
+    if (isEntry) {
+      await setDoc(entryRef, { entrada: hora }, { merge: true });
+    } else {
+      await setDoc(entryRef, { salida: hora }, { merge: true });
+    }
+
+    return {
+      error: false,
+      isEntry: isEntry,
+      message: isEntry ? `Entrada registrada a las ${hora}` : `Salida registrada a las ${hora}`
+    }
+  } catch (e) {
+    console.error(e)
     return {
       error: true,
-      message: "La matrícula no existe"
+      message: 'Error al registrar la entrada/salida. Por favor, intenta de nuevo.'
     }
-  }
-
-  const querySnapshot = await getDocs(collection(db, "usuarios", matricula, "asistencia"));
-
-  let isEntry = true
-  querySnapshot.forEach(dia => {
-    if (dia.id === fecha_string) {
-      isEntry = false
-    }
-  })
-
-  console.log({ isEntry })
-
-  const entryRef = doc(db, "usuarios", matricula, "asistencia", fecha_string);
-  if (isEntry) {
-    await setDoc(entryRef, { entrada: hora }, { merge: true });
-  } else {
-    await setDoc(entryRef, { salida: hora }, { merge: true });
-  }
-
-  return {
-    error: false,
-    isEntry: isEntry,
-    message: isEntry ? `Entrada registrada a las ${hora}` : `Salida registrada a las ${hora}`
   }
 }
 
@@ -155,7 +163,7 @@ export async function getAsistencias(id) {
   const q = query(collection(db, "usuarios", id, "asistencia"));
 
   const querySnapshot = await getDocs(q);
-  let data = {} 
+  let data = {}
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     const datos = doc.data()
