@@ -13,3 +13,8 @@
   color: #a9a9a9;
   cursor: not-allowed;
 }
+
+.error {
+  background-color: #ff0000;
+  color: aliceblue;
+}

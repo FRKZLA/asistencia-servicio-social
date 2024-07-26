@@ -1,9 +1,10 @@
 'use client'
 import { useState } from 'react'
 import styles from './Dialog.module.css'
+import Button from '../Button'
 
 
-const Dialog = ({ title, children, handleClose }) => {
+const Dialog = ({ title, children, handleClose, isError }) => {
   const [open, setOpen] = useState(true)
 
   if (!children) return null
@@ -21,7 +22,7 @@ const Dialog = ({ title, children, handleClose }) => {
         <section>
           {children}
         </section>
-        <button type='button' onClick={handleModal} className={styles.button}>Aceptar</button>
+        <Button type='button' onClick={handleModal} isError={isError} className={styles.button}>Aceptar</Button>
       </dialog>
     </main>
   )

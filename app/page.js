@@ -30,7 +30,7 @@ export default function Home() {
       <h1>Registrar Entrada/Salida</h1>
       {
         state.message && (
-          <Dialog title={state.error ? 'Error' : 'Mensaje'} handleClose={handleDialogClose}>
+          <Dialog title={state.error ? 'Error' : 'Mensaje'} handleClose={handleDialogClose} isError={state.error}>
             {state.message}
           </Dialog>
         )

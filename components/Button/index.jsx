@@ -6,6 +6,10 @@ const Button = ({ children, ...props }) => {
   const { pending } = useFormStatus()
   let className = styles.button
 
+  if (props.isError) {
+    className += ` ${styles.error}`
+  }
+
   // Merge the class names
   if (props.className) {
     className += ` ${props.className}`
