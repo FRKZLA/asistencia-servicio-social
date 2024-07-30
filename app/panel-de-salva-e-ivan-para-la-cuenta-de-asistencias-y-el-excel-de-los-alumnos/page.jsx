@@ -31,7 +31,7 @@ const PanelPage = () => {
       <section>
         Junio
       </section>
-      <table ref={tableRef}>
+      <table ref={tableRef} className={styles.table}>
         <thead>
           <tr>
             <th>Nombre</th>

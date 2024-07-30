@@ -9,3 +9,19 @@
   background-color: #086825;
   color: white;
 }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.table td:nth-child(1) {
+  text-align: left;
+}
