@@ -25,7 +25,7 @@ const parseAsistenciaByMonth = async (month) => {
           nombre: alumnos[index].nombre,
           asistencias: asistenciasDelMes.length,
           horas: Math.ceil(total / 60),
-          faltantes: 40 - Math.ceil(total / 60)
+          faltantes: 80 - Math.ceil(total / 60)
         }
       })
       // console.log(res)
