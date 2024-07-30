@@ -12,7 +12,7 @@ import useAlumno from '@/hook/useAlumno';
 const PanelPage = () => {
   const [tabla, setTabla] = useState({})
   useEffect(() => {
-    parseAsistenciaByMonth(6).then(data => {
+    parseAsistenciaByMonth(7).then(data => {
       console.log(Object.values(data))
       setTabla(data)
     })
@@ -29,7 +29,7 @@ const PanelPage = () => {
     <main className={pageStyles.main}>
       <h1>Panel</h1>
       <section>
-        Junio
+        Julio
       </section>
       <table ref={tableRef} className={styles.table}>
         <thead>
