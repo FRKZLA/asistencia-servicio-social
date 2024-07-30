@@ -30,52 +30,23 @@ const PanelPage = () => {
       <h1>Panel</h1>
       <section>
         Junio
-        {
-          Object.values(tabla).map((alumno, index) => (
-            <div key={index}>
-              <p>{alumno.nombre}</p>
-              <p>{alumno.asistencias}</p>
-            </div>
-          ))
-        }
-      </section>
-      <section>
-        Julio
       </section>
       <table ref={tableRef}>
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Apellido</th>
             <th>Asistencias</th>
-            <th>Retrasos</th>
-            <th>Faltas</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Alumno 1</td>
-            <td>Apellido 1</td>
-            <td>10</td>
-            <td>2</td>
-            <td>0</td>
-            <td>
-              <Button>Editar</Button>
-              <Button>Eliminar</Button>
-            </td>
-          </tr>
-          <tr>
-            <td>Alumno 2</td>
-            <td>Apellido 2</td>
-            <td>10</td>
-            <td>2</td>
-            <td>0</td>
-            <td>
-              <Button>Editar</Button>
-              <Button>Eliminar</Button>
-            </td>
-          </tr>
+          {
+            Object.values(tabla).map((alumno, index) => (
+              <tr key={index}>
+                <td>{alumno.nombre}</td>
+                <td>{alumno.asistencias}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
       <Button onClick={handleExport} className={styles.btn_excel}>Exportar a Excel</Button>
