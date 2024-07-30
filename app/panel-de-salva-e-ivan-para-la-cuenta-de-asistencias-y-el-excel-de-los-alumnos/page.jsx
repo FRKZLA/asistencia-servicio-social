@@ -6,29 +6,17 @@ import Input from '@/components/Input';
 import styles from './panel.module.css'
 import { utils, writeFileXLSX } from "xlsx";
 import { getAsistencias, getUsuario, getUsuarios } from '../actions';
+import parseAsistenciaByMonth from '@/helpers/parseAsistenciasByMonth';
 import useAlumno from '@/hook/useAlumno';
 
 const PanelPage = () => {
-  const [alumnos, setAlumnos] = useState([]);
-  const [asistencias, setAsistencias] = useState([]);
+  const [tabla, setTabla] = useState({})
   useEffect(() => {
-    // fetch alumnos
-    getUsuarios().then(data => {
-      setAlumnos(data)
-      console.log({ alumnos: data })
+    parseAsistenciaByMonth(6).then(data => {
+      console.log(Object.values(data))
+      setTabla(data)
     })
   }, [])
-
-  useEffect(() => {
-    Promise.all(alumnos.map(alumno => getAsistencias(alumno.id)))
-      .then(data => {
-        console.log({ data })
-        setAsistencias(data)
-      })
-
-
-  }, [alumnos])
-  // const { } = useAlumno(10)
 
   const tableRef = useRef(null);
   const handleExport = () => {
@@ -36,24 +24,17 @@ const PanelPage = () => {
     // write to XLSX
     writeFileXLSX(wb, "Reporte.xlsx");
   }
+
   return (
     <main className={pageStyles.main}>
       <h1>Panel</h1>
       <section>
         Junio
         {
-          alumnos.map(alumno => (
-            <div key={alumno.id}>
-              <h2>{alumno.nombre}</h2>
-              <ul>
-                {
-                  asistencias.map(asistencia => (
-                    <li key={asistencia.id}>
-                      {asistencia.fecha}
-                    </li>
-                  ))
-                }
-              </ul>
+          Object.values(tabla).map((alumno, index) => (
+            <div key={index}>
+              <p>{alumno.nombre}</p>
+              <p>{alumno.asistencias}</p>
             </div>
           ))
         }
