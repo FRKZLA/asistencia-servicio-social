@@ -36,6 +36,8 @@ const PanelPage = () => {
           <tr>
             <th>Nombre</th>
             <th>Asistencias</th>
+            <th>Horas Realizadas</th>
+            <th>Horas Faltantes</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +46,8 @@ const PanelPage = () => {
               <tr key={index}>
                 <td>{alumno.nombre}</td>
                 <td>{alumno.asistencias}</td>
+                <td>{alumno.horas}</td>
+                <td>{alumno.faltantes}</td>
               </tr>
             ))
           }
