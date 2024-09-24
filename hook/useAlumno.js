@@ -9,8 +9,6 @@ const useAlumno = (id) => {
   const [totalByDay, setTotalByDay] = useState({})
   const [horasFaltantes, setHorasFaltantes] = useState(0)
 
-  const dateNow = new Date()
-
   useEffect(() => {
     Promise.all([getUsuario(id), getAsistencias(id)])
       .then(([usuario, asistencias]) => {
@@ -29,31 +27,6 @@ const useAlumno = (id) => {
                 return acc + parseInt((salida - entrada) / 1000 / 60)
               }, 0)
 
-            // Si está en el mes actual
-            const initialDate = new Date(`2024-${asistencia[0]}-1`)
-            const finalDate = new Date().setDate(new Date().getDate() - 1)
-            const anotherDate = new Date(initialDate.getFullYear(), asistencia[0], 0)
-            let sumaHoras = 0
-
-            let useDate;
-            if (parseInt(asistencia[0]) === dateNow.getMonth() + 1) {
-              useDate = finalDate
-            } else {
-              useDate = anotherDate
-            }
-
-            for (let i = initialDate; i < useDate; i.setDate(i.getDate() + 1)) {
-              if (i.getDay() === 0 || i.getDay() === 6) {
-                continue
-              }
-              //console.log(i.getDay())
-              sumaHoras += 4
-            }
-            setHorasFaltantes(prev => ({
-              ...prev,
-              [asistencia[0]]: Math.floor(sumaHoras - (sum / 60))
-            }))
-
             setTotalByDay((prev) => ({
               ...prev,
               [asistencia[0]]: sum
@@ -62,6 +35,21 @@ const useAlumno = (id) => {
           }
             , 0)
         setTotalMin(total)
+
+        const initialDate = new Date(`2024-7-1`)
+        const finalDate = new Date().setDate(new Date().getDate() - 1)
+        let sumaHoras = 0
+
+        for (let i = initialDate; i < finalDate; i.setDate(i.getDate() + 1)) {
+          if (i.getDay() === 0 || i.getDay() === 6) {
+            continue
+          }
+          // TODO: Tomar en cuenta los días festivos
+          //console.log(i.getDay())
+          sumaHoras += 4
+        }
+        const horasPendientes = Math.floor(sumaHoras - (total / 60))
+        setHorasFaltantes(horasPendientes)
       })
   }, [id])
 
