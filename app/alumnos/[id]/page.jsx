@@ -27,6 +27,13 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <hr />
               <h3>Conteo de horas</h3>
               <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
+              {
+                horasFaltantes > 0 ? (
+                  <h4 className='danger'>Faltan {horasFaltantes} horas en el mes</h4>
+                ) : (
+                  <h4 className='success'>Está al corriente</h4>
+                )
+              }
             </section>
             {
               Object.entries(asistencias)
@@ -45,13 +52,6 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                         ))
                     }
                     Total: {convertMinutesToString(totalByDay[key])} horas
-                    {
-                      horasFaltantes[key] > 0 ? (
-                        <h4 className='danger'>Faltan {horasFaltantes[key]} horas en el mes</h4>
-                      ) : (
-                        <h4 className='success'>Está al corriente</h4>
-                      )
-                    }
                   </section>))
             }
           </>
