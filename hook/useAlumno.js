@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getUsuario, getAsistencias } from '@/app/actions'
+import { getDiasFestivos } from '@/app/actions'
 
 const useAlumno = (id) => {
   const [personalInfo, setPersonalInfo] = useState(null)
@@ -10,12 +11,12 @@ const useAlumno = (id) => {
   const [horasFaltantes, setHorasFaltantes] = useState(0)
 
   useEffect(() => {
-    Promise.all([getUsuario(id), getAsistencias(id)])
-      .then(([usuario, asistencias]) => {
+    Promise.all([getUsuario(id), getAsistencias(id), getDiasFestivos()])
+      .then(([usuario, asistencias, diasFestivos]) => {
         setPersonalInfo(usuario)
         setAsistencias(asistencias)
         setIsLoading(false)
-        const total = Object.entries(asistencias)
+        let total = Object.entries(asistencias)
           .reduce((acc, asistencia) => {
             const sum = asistencia[1]
               .reduce((acc, dia) => {
@@ -48,6 +49,18 @@ const useAlumno = (id) => {
           //console.log(i.getDay())
           sumaHoras += 4
         }
+
+        // Sumar los días festivos
+        Object.entries(diasFestivos)
+          .forEach(([key, value]) => {
+            console.log(key)
+            const minutosAgregar = 60 * 4
+            total += minutosAgregar
+            setTotalMin((prev) => prev + minutosAgregar)
+
+
+          })
+
         const horasPendientes = Math.floor(sumaHoras - (total / 60))
         setHorasFaltantes(horasPendientes)
       })

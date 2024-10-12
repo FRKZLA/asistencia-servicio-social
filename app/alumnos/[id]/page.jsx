@@ -5,19 +5,11 @@ import Link from 'next/link'
 import BackButton from '@/components/BackButton'
 import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 import useAlumno from '@/hook/useAlumno'
-import { useEffect, useState } from 'react'
-import { getDiasFestivos } from '@/app/actions'
 
 const MINUTOS_A_REALIZAR = 480 * 60
 
 const AlumnoByIdPage = ({ params: { id } }) => {
   const { personalInfo, asistencias, isLoading, totalMin, totalByDay, horasFaltantes } = useAlumno(id)
-  const [diasFestivos, setDiasFestivos] = useState({})
-
-  useEffect(() => {
-    getDiasFestivos()
-      .then(setDiasFestivos)
-  }, [])
 
   return (
     <div className={pageStyles.main}>
