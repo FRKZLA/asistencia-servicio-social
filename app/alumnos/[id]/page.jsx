@@ -5,11 +5,19 @@ import Link from 'next/link'
 import BackButton from '@/components/BackButton'
 import { convertMinutesToString } from '@/helpers/convertMinutesToString'
 import useAlumno from '@/hook/useAlumno'
+import { useEffect, useState } from 'react'
+import { getDiasFestivos } from '@/app/actions'
 
 const MINUTOS_A_REALIZAR = 480 * 60
 
 const AlumnoByIdPage = ({ params: { id } }) => {
   const { personalInfo, asistencias, isLoading, totalMin, totalByDay, horasFaltantes } = useAlumno(id)
+  const [diasFestivos, setDiasFestivos] = useState(null)
+
+  useEffect(() => {
+    getDiasFestivos()
+      .then(setDiasFestivos)
+  }, [])
 
   return (
     <div className={pageStyles.main}>
@@ -26,7 +34,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Horario: {personalInfo.hora_entrada} - {personalInfo.hora_salida}</h4>
               <hr />
               <h3>Conteo de horas</h3>
-              <h4>Realizadas: {convertMinutesToString(totalMin)}</h4>
+              <h4>Realizadas: {convertMinutesToString(totalMin)} (Incluye las horas de días festivos)</h4>
               {
                 horasFaltantes > 0 ? (
                   <h4 className='danger'>Faltan {horasFaltantes} horas en el mes</h4>
@@ -34,6 +42,25 @@ const AlumnoByIdPage = ({ params: { id } }) => {
                   <h4 className='success'>Está al corriente</h4>
                 )
               }
+            </section>
+            <section className={styles.info}>
+              <h2>Días Festivos</h2>
+              {
+                diasFestivos ? Object.entries(diasFestivos)
+                  .map(([key, value]) => {
+                    const date = new Date(key)
+                    // convertimos la fecha a un string legible
+
+                    const dateStr = date.toLocaleDateString('es', {
+                      month: 'long',
+                      day: 'numeric'
+                    })
+                    return <h4 key={key}>{dateStr} - {value.name}</h4>
+                  })
+                  :
+                  <h4>No hay días festivos</h4>
+              }
+              Se sumaron {diasFestivos ? Object.keys(diasFestivos).length * 4 : 0} horas
             </section>
             {
               Object.entries(asistencias)
