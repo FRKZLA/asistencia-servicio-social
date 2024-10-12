@@ -209,3 +209,18 @@ export async function getReporteAlumnos() {
   });
   return data
 }
+
+export async function getDiasFestivos() {
+  const q = query(collection(db, "dias_festivos"));
+
+  const querySnapshot = await getDocs(q);
+  let data = {}
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    const datos = doc.data()
+    data[datos.date] = datos
+
+  });
+  console.log(data)
+  return data
+}
