@@ -37,7 +37,7 @@ const AlumnoByIdPage = ({ params: { id } }) => {
               <h4>Realizadas: {convertMinutesToString(totalMin)} (Incluye las horas de días festivos)</h4>
               {
                 horasFaltantes > 0 ? (
-                  <h4 className='danger'>Faltan {horasFaltantes} horas en el mes</h4>
+                  <h4 className='danger'>Faltan {horasFaltantes} horas en total</h4>
                 ) : (
                   <h4 className='success'>Está al corriente</h4>
                 )
