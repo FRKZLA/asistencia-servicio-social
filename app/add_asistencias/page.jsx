@@ -2,8 +2,10 @@
 import pageStyles from '@/app/page.module.css'
 import Form from '@/components/Form/page';
 import Input from '@/components/Input';
+import { useState } from 'react';
 
 const AddAlumnosPage = () => {
+  const [day, setDay] = useState('');
   return (
     <div className={pageStyles.main}>
       <h1>Agregar asistencias</h1>
@@ -14,8 +16,10 @@ const AddAlumnosPage = () => {
           min='2024-06-01'
           max='2024-06-30'
           title='Fecha'
+          onChange={(e) => setDay(e.target.value)}
         />
       </Form>
+      <span>{day}</span>
     </div>
   )
 
