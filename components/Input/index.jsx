@@ -1,6 +1,6 @@
 import styles from './input.module.css'
 
-const Input = ({ value, onChange, ...props }) => {
+const Input = ({ value, ...props }) => {
   return (
     <section className={styles.input_container}>
       <input
