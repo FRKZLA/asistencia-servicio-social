@@ -5,6 +5,8 @@ import Input from '@/components/Input';
 import ListOfAlumnos from '@/components/ListOfAlumnos';
 import { useState } from 'react';
 
+import styles from './page.module.css'
+
 const AddAlumnosPage = () => {
   const [day, setDay] = useState('');
   return (
@@ -20,7 +22,18 @@ const AddAlumnosPage = () => {
           onChange={(e) => setDay(e.target.value)}
         />
       </Form>
-      <ListOfAlumnos />
+      <ListOfAlumnos lateral>
+        <article className={styles.inputs}>
+          <Input
+            type="time"
+            title="Inicio"
+          />
+          <Input
+            type="time"
+            title="Fin"
+          />
+        </article>
+      </ListOfAlumnos>
     </main>
   )
 
