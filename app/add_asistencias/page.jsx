@@ -4,16 +4,24 @@ import Form from '@/components/Form/page';
 import Input from '@/components/Input';
 import ListOfAlumnos from '@/components/ListOfAlumnos';
 import { useState } from 'react';
+import { useFormState } from 'react-dom'
+import { postNewDay } from '@/app/actions';
 
 import styles from './page.module.css'
 import Button from '@/components/Button';
 
+const initialState = {
+  error: null,
+  message: null
+}
+
 const AddAlumnosPage = () => {
+  const [state, formAction] = useFormState(postNewDay, initialState);
   const [day, setDay] = useState('');
   return (
     <main className={pageStyles.main}>
       <h1>Agregar asistencias</h1>
-      <Form action="">
+      <Form action={formAction}>
         <h2>Ingresa una fecha</h2>
         <Input
           type="date"

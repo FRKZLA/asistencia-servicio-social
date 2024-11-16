@@ -224,3 +224,8 @@ export async function getDiasFestivos() {
   console.log(data)
   return data
 }
+
+export async function postNewDay(params) {
+  console.log(params)
+  return params
+}
