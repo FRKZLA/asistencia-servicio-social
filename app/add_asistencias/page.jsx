@@ -2,12 +2,13 @@
 import pageStyles from '@/app/page.module.css'
 import Form from '@/components/Form/page';
 import Input from '@/components/Input';
+import ListOfAlumnos from '@/components/ListOfAlumnos';
 import { useState } from 'react';
 
 const AddAlumnosPage = () => {
   const [day, setDay] = useState('');
   return (
-    <div className={pageStyles.main}>
+    <main className={pageStyles.main}>
       <h1>Agregar asistencias</h1>
       <Form action="">
         <h2>Ingresa una fecha</h2>
@@ -19,8 +20,8 @@ const AddAlumnosPage = () => {
           onChange={(e) => setDay(e.target.value)}
         />
       </Form>
-      <span>{day}</span>
-    </div>
+      <ListOfAlumnos />
+    </main>
   )
 
 }
