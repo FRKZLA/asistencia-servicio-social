@@ -20,6 +20,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.lateral {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .center {
     text-align: center;
 }
