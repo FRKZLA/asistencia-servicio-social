@@ -3,11 +3,12 @@ import pageStyles from '@/app/page.module.css'
 import Form from '@/components/Form/page';
 import Input from '@/components/Input';
 import ListOfAlumnos from '@/components/ListOfAlumnos';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom'
 import { postNewDay } from '@/app/actions';
 
 import Button from '@/components/Button';
+import Dialog from '@/components/Dialog';
 
 const initialState = {
   error: null,
@@ -15,11 +16,21 @@ const initialState = {
 }
 
 const AddAlumnosPage = () => {
-  // const [state, formAction] = useFormState(postNewDay, initialState);
+  const [state, setState] = useState(initialState)
+  const [stateForm, formAction] = useFormState(postNewDay, initialState);
+
+  useEffect(() => {
+    setState(stateForm)
+  }, [stateForm])
+
+  const handleClose = () => {
+    setState(initialState)
+  }
+
   return (
     <main className={pageStyles.main}>
       <h1>Agregar asistencias</h1>
-      <Form action={postNewDay}>
+      <Form action={formAction}>
         <h2>Ingresa una fecha</h2>
         <Input
           name="date"
@@ -33,6 +44,13 @@ const AddAlumnosPage = () => {
         <ListOfAlumnos lateral />
         <Button>Guardar</Button>
       </Form>
+      {
+        state.message && (
+          <Dialog title={state.error ? 'Error' : 'Mensaje'} handleClose={handleClose}>
+            {state.message}
+          </Dialog>
+        )
+      }
     </main>
   )
 
