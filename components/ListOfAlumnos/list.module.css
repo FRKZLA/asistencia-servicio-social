@@ -28,3 +28,9 @@
 .center {
     text-align: center;
 }
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

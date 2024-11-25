@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { getUsuarios } from '@/app/actions'
 import styles from './list.module.css'
+import Input from '../Input'
 
 const ListOfAlumnos = ({ children, lateral = false }) => {
   const [alumnos, setAlumnos] = useState([])
@@ -32,7 +33,20 @@ const ListOfAlumnos = ({ children, lateral = false }) => {
             <h3># {alumno.id}</h3>
             <p>{alumno.nombre}</p>
           </Link>
-          {children}
+          {lateral &&
+            <article className={styles.inputs}>
+              <Input
+                type="time"
+                title="Inicio"
+                name={`entrada-${alumno.id}`}
+              />
+              <Input
+                type="time"
+                title="Fin"
+                name={`salida-${alumno.id}`}
+              />
+            </article>
+          }
         </section>
       ))}
     </article>
