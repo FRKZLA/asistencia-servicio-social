@@ -15,12 +15,11 @@ const initialState = {
 }
 
 const AddAlumnosPage = () => {
-  const [state, formAction] = useFormState(postNewDay, initialState);
-  const [day, setDay] = useState('');
+  // const [state, formAction] = useFormState(postNewDay, initialState);
   return (
     <main className={pageStyles.main}>
       <h1>Agregar asistencias</h1>
-      <Form action={formAction}>
+      <Form action={postNewDay}>
         <h2>Ingresa una fecha</h2>
         <Input
           name="date"
@@ -29,7 +28,7 @@ const AddAlumnosPage = () => {
           max='2024-06-30'
           title='Fecha'
           required
-          onChange={(e) => setDay(e.target.value)}
+        // onChange={(e) => setDay(e.target.value)}
         />
         <ListOfAlumnos lateral />
         <Button>Guardar</Button>

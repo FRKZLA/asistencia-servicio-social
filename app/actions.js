@@ -227,5 +227,6 @@ export async function getDiasFestivos() {
 
 export async function postNewDay(params) {
   console.log(params)
+  redirect('/add_asistencias')
   return params
 }

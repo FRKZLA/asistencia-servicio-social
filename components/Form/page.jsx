@@ -1,8 +1,9 @@
 import styles from './form.module.css'
 
-const Form = ({ children }) => {
+const Form = ({ children, ...props }) => {
+  const method = props?.method || 'POST';
   return (
-    <form className={styles.form}>
+    <form className={styles.form} method={method}>
       {children}
     </form>
   );
