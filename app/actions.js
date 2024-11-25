@@ -187,11 +187,14 @@ export async function getToken(prevState, formData) {
   if (pass !== 'admin') {
     return {
       error: true,
-      message: 'Contraseña incorrecta'
+      message: 'Contraseña incorrecta',
+      isLogged: false
     }
   }
 
-  return redirect('/panel-de-salva-e-ivan-para-la-cuenta-de-asistencias-y-el-excel-de-los-alumnos')
+  return {
+    isLogged: true
+  }
 }
 
 export async function getReporteAlumnos() {

@@ -20,6 +20,9 @@ const PanelPage = () => {
 
   useEffect(() => {
     setState(stateForm)
+    if (stateForm.isLogged) {
+      window.sessionStorage.setItem('_20459173190857', true)
+    }
   }, [stateForm])
 
   const handleClose = () => {

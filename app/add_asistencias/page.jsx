@@ -9,6 +9,7 @@ import { postNewDay } from '@/app/actions';
 
 import Button from '@/components/Button';
 import Dialog from '@/components/Dialog';
+import { redirect } from 'next/navigation';
 
 const initialState = {
   error: null,
@@ -18,6 +19,14 @@ const initialState = {
 const AddAlumnosPage = () => {
   const [state, setState] = useState(initialState)
   const [stateForm, formAction] = useFormState(postNewDay, initialState);
+
+  useEffect(() => {
+    const isLogged = window.sessionStorage.getItem('_20459173190857')
+    if (!isLogged) {
+      redirect('/login')
+    }
+
+  }, [])
 
   useEffect(() => {
     setState(stateForm)
