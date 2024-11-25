@@ -184,7 +184,7 @@ export async function getAsistencias(id) {
 export async function getToken(prevState, formData) {
   const pass = formData.get('pass')
 
-  if (pass !== 'admin') {
+  if (pass !== 'country-monopoly-handclasp') {
     return {
       error: true,
       message: 'Contraseña incorrecta',
