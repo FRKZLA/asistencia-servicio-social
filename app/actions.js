@@ -225,8 +225,25 @@ export async function getDiasFestivos() {
   return data
 }
 
-export async function postNewDay(params) {
-  console.log(params)
-  redirect('/add_asistencias')
-  return params
+export async function postNewDay(formData) {
+
+  const date = formData.get('date')
+
+  // formdata to array
+  const entries = Array.from(formData.entries())
+  const asistencias = entries.filter(([key, value]) => key !== 'date')
+
+  asistencias
+    .filter(([_, value]) => value !== '')
+    .forEach(async ([key, value]) => {
+      const matricula = key.split('-')[1]
+      const isEntrada = key.split('-')[0] === 'entrada'
+
+      const kind = isEntrada ? 'entrada' : 'salida'
+
+      const docRef = doc(db, "usuarios", matricula, "asistencia", date);
+      await setDoc(docRef, { [kind]: value }, { merge: true });
+    })
+
+  return redirect('/add_asistencias')
 }
