@@ -249,9 +249,7 @@ export async function postNewDay(prevState, formData) {
       const docRef = doc(db, "usuarios", matricula, "asistencia", date);
       await setDoc(docRef, { [kind]: value }, { merge: true });
     }
-  }
-
-  catch (e) {
+  } catch (e) {
     console.error(e)
     return {
       error: true,

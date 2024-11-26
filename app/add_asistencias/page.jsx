@@ -33,12 +33,14 @@ const AddAlumnosPage = () => {
   }, [stateForm])
 
   const handleClose = () => {
-    setState(initialState)
     // Reset the form
-    const inputs = document.querySelectorAll('input')
-    inputs.forEach(input => {
-      input.value = ''
-    })
+    if (!state.error) {
+      const inputs = document.querySelectorAll('input')
+      inputs.forEach(input => {
+        input.value = ''
+      })
+    }
+    setState(initialState)
   }
 
   return (
