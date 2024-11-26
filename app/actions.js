@@ -230,15 +230,17 @@ export async function getDiasFestivos() {
 
 export async function postNewDay(prevState, formData) {
   const date = formData.get('date')
+  try {
+    // formdata to array
+    const entries = Array.from(formData.entries())
+    const asistencias = entries
+      .filter(([key, value]) => key !== 'date')
+      .filter(([_, value]) => value !== '')
+      .filter(([key, _]) => key.split('-')[0] === 'entrada' || key.split('-')[0] === 'salida')
 
-  // formdata to array
-  const entries = Array.from(formData.entries())
-  const asistencias = entries.filter(([key, value]) => key !== 'date')
-
-  asistencias
-    .filter(([_, value]) => value !== '')
-    .filter(([key, _]) => key.split('-')[0] === 'entrada' || key.split('-')[0] === 'salida')
-    .forEach(async ([key, value]) => {
+    for (let i = 0; i < asistencias.length; i++) {
+      const [key, value] = asistencias[i]
+      console.log(key, value)
       const matricula = key.split('-')[1]
       const isEntrada = key.split('-')[0] === 'entrada'
 
@@ -246,7 +248,16 @@ export async function postNewDay(prevState, formData) {
 
       const docRef = doc(db, "usuarios", matricula, "asistencia", date);
       await setDoc(docRef, { [kind]: value }, { merge: true });
-    })
+    }
+  }
+
+  catch (e) {
+    console.error(e)
+    return {
+      error: true,
+      message: 'Error al registrar las asistencias. Por favor, intenta de nuevo.'
+    }
+  }
 
   return {
     error: false,
