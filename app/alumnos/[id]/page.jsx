@@ -14,7 +14,7 @@ const MINUTOS_A_REALIZAR = 480 * 60
 const AlumnoByIdPage = ({ params: { id } }) => {
   const { personalInfo, asistencias, isLoading, totalMin, totalByDay, horasFaltantes } = useAlumno(id)
   const [diasFestivos, setDiasFestivos] = useState(null)
-  const [isDismissed, setIsDismissed] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(true)
 
   useEffect(() => {
     getDiasFestivos()
