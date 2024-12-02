@@ -74,6 +74,17 @@ const AlumnoAddPage = () => {
           />
           <label htmlFor="matricula" className={styles.label}>Hora de Salida:</label>
         </section>
+        <section className={styles.input_container}>
+          <select
+            id="ciclo"
+            name="ciclo"
+            required
+            className={styles.input}
+          >
+            <option value="EJ-2025">EJ-2025</option>
+          </select>
+          <label htmlFor="ciclo" className={styles.label}>Ciclo:</label>
+        </section>
         <Button>
           Agregar
         </Button>
