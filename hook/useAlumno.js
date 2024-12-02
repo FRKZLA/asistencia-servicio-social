@@ -37,7 +37,7 @@ const useAlumno = (id) => {
             , 0)
         setTotalMin(total)
 
-        const initialDate = new Date(`2024-7-1`)
+        const initialDate = new Date(`2024-12-1`)
         const finalDate = new Date().setDate(new Date().getDate() - 1)
         let sumaHoras = 0
 
@@ -60,7 +60,7 @@ const useAlumno = (id) => {
 
           })
 
-        const horasPendientes = Math.floor(480 - (total / 60))
+        const horasPendientes = Math.floor(sumaHoras - (total / 60))
         setHorasFaltantes(horasPendientes)
       })
   }, [id])
