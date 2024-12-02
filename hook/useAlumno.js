@@ -53,7 +53,6 @@ const useAlumno = (id) => {
         // Sumar los días festivos
         Object.entries(diasFestivos)
           .forEach(([key, value]) => {
-            console.log(key)
             const minutosAgregar = 60 * 4
             total += minutosAgregar
             setTotalMin((prev) => prev + minutosAgregar)

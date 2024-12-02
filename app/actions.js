@@ -225,7 +225,9 @@ export async function getDiasFestivos() {
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     const datos = doc.data()
-    data[datos.date] = datos
+    if (datos.ciclo === 'EJ2025') {
+      data[datos.date] = datos
+    }
 
   });
   console.log(data)
