@@ -50,10 +50,6 @@ const useAlumno = (id) => {
           sumaHoras += 4
         }
 
-        // Sumar las horas de Junio
-        setTotalMin((prev) => prev + (60 * 80))
-        total += (60 * 80)
-
         // Sumar los días festivos
         Object.entries(diasFestivos)
           .forEach(([key, value]) => {
