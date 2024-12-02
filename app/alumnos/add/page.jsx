@@ -81,7 +81,7 @@ const AlumnoAddPage = () => {
             required
             className={styles.input}
           >
-            <option value="EJ-2025">EJ-2025</option>
+            <option value="EJ2025">EJ2025</option>
           </select>
           <label htmlFor="ciclo" className={styles.label}>Ciclo:</label>
         </section>

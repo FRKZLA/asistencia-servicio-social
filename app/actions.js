@@ -102,6 +102,7 @@ export async function postAlumno(prevState, formData) {
   const nombre = formData.get('nombre')
   const hora_entrada = formData.get('hora_entrada')
   const hora_salida = formData.get('hora_salida')
+  const ciclo = formData.get('ciclo')
 
   // Check if the matricula already exists
   const docSnap = await getDoc(doc(db, "usuarios", matricula));
@@ -116,7 +117,8 @@ export async function postAlumno(prevState, formData) {
   await setDoc(docRef, {
     nombre,
     hora_entrada,
-    hora_salida
+    hora_salida,
+    ciclo
   });
 
   return {
@@ -133,10 +135,12 @@ export async function getUsuarios() {
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     const datos = doc.data()
-    data.push({
-      id: doc.id,
-      ...datos
-    })
+    if (datos.ciclo === 'EJ2025') {
+      data.push({
+        id: doc.id,
+        ...datos
+      })
+    }
   });
   return data
 }
